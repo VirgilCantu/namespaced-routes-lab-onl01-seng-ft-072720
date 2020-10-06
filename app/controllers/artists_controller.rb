@@ -7,8 +7,14 @@ class ArtistsController < ApplicationController
     @artist = Artist.find(params[:id])
   end
 
+  #need to validate an instance of Preference
   def new
-    @artist = Artist.new
+    p = Preference.first
+    if p.allow_create_artists
+      @artist = Artist.new
+    else
+      redirect_to artists_path
+    end
   end
 
   def create
